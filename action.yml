@@ -67,7 +67,7 @@ runs:
         inlineScript: |
           cd airepo
           dir
-          cd airepo/vsk-search-openai-demo-py
+          cd airepo
           azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
           Get-AzAccessToken -ResourceUrl "https://vault.azure.net"
           azd env new ${{ inputs.env-name }}
