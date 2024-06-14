@@ -72,10 +72,11 @@ runs:
           azd env new ${{ inputs.env-name }}
           azd env set AZURE_ENV_NAME ${{ inputs.env-name }}
           azd env set AZURE_LOCATION ${{ inputs.location }}
-          azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
           azd env set AZURE_SUBSCRIPTION_ID ${{ inputs.subscription-id }}
           azd env set AZURE_PRINCIPAL_ID ${{ inputs.principal-id }}
           azd env set AZURE_PRINCIPAL_NAME ${{ inputs.principal-name }}  
+          azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
+          azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.openai-location }}
           Get-AzContext -ListAvailable
           azd up --no-prompt -e ${{ inputs.env-name }}
         azPSVersion: "latest"
