@@ -65,6 +65,7 @@ runs:
       uses: azure/powershell@v2
       with:
         inlineScript: |
+          cd airepo
           dir
           cd airepo/vsk-search-openai-demo-py
           azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
