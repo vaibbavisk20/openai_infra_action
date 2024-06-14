@@ -36,3 +36,4 @@ jobs:
               openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
               env-name: ${{ vars.AZURE_ENV_NAME }}
               principal-name: ${{ secrets.AZURE_APP_NAME }}
+              documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
