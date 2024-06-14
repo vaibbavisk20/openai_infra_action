@@ -33,7 +33,7 @@ jobs:
               principal-id: ${{ secrets.AZURE_APP_ID }}
               subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
               location: ${{ vars.AZURE_LOCATION }}
-              openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
               env-name: ${{ vars.AZURE_ENV_NAME }}
               principal-name: ${{ secrets.AZURE_APP_NAME }}
+              openAiResourceGroupLocation: ${{ vars.AZURE_OPENAI_LOCATION }}
               documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
