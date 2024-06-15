@@ -31,6 +31,12 @@ inputs:
   documentintelligence-location:
     decsription: 'Location to deploy Document Intelligence resources to'
     required: true
+  bring-your-own-data:
+    description: 'Boolean to indicate if you are bringing your own data'
+    required: true
+  data-path:
+    description: 'Path to data to be used to train the OpenAI model'
+    required: false
 
 runs:
   using: 'composite'
@@ -80,6 +86,8 @@ runs:
           azd env set AZURE_PRINCIPAL_NAME ${{ inputs.principal-name }}  
           azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
           azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
+          azd env set BRING_YOUR_OWN_DATA ${{ inputs.bring-your-own-data }}
+          azd env set CUSTOM_DATA_PATH ${{ inputs.data-path }}
           Get-AzContext -ListAvailable
           azd up --no-prompt -e ${{ inputs.env-name }}
         azPSVersion: "latest"
