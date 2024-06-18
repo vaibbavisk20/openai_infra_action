@@ -33,7 +33,7 @@ inputs:
     required: true
   bring-your-own-data:
     description: 'Boolean to indicate if you are bringing your own data'
-    required: true
+    required: false
   data-path:
     description: 'Path to data to be used to train the OpenAI model'
     required: false
