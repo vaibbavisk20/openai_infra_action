@@ -89,6 +89,8 @@ jobs:
 
 The Chat App is designed to work with any PDF documents. The sample data is provided to help you get started quickly, but you can easily replace it with your own data. You will need to upload your data folder to the repo containing the above workflow, and pass in the folder path as seen above.
 
+- Please change env name for new set of resources. If the same env name is used, then new data will get re-deployed to previously created resources.
+  
 **Note**: The frontend is built using React and Fluent UI components. In order to customize prompts seen on the chat interface, you will have to clone the template and make those changes. [Refer to template for further information](https://github.com/Azure-Samples/azure-search-openai-demo)
 
 ## Troubleshooting
