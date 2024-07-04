@@ -82,9 +82,9 @@ runs:
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
-          Write-Host "Printing out JSON input: $env.additional-args"
+          Write-Host "Printing out JSON input: $env.additional_args"
           Existing script...
-          if ($env.additional-args) {
+          if ($env.additional_args) {
             $parsedJson = $env.additional-args | ConvertFrom-Json
             Write-Output "Printing out JSON input: $parsedJson"
             foreach ($key in $parsedJson.PSObject.Properties.Name) {

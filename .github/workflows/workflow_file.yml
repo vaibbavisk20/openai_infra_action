@@ -21,7 +21,7 @@ jobs:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      additional-args: '{"key1":"value1", "key2":true, "key3":123}'
+      additional_args: '{"key1":"value1", "key2":true, "key3":123}'
     steps:
         - name: Checkout master
           uses: actions/checkout@v3
