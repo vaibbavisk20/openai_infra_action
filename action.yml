@@ -90,7 +90,7 @@ runs:
           }
 
           #Start the deployment
-          azd up --no-prompt -e ${{ inputs.env-name }}
+          # azd up --no-prompt -e ${{ inputs.env-name }}
 
 
         azPSVersion: "latest"
