@@ -63,17 +63,22 @@ runs:
       with:
         node-version: 20
 
+    - name: get properties
+      id: additional_properties
+      uses: ActionsTools/read-json-action@main
+      with:
+        file_path: "additional_properties.json"
+
     - name: Az powershell
       uses: azure/powershell@v2
       env:
         BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
-        OPTIONAL_JSON: ${{ inputs.additional-args }}
+        OPTIONAL_JSON: ${{ steps.json_properties.outputs }}
       with:
         inlineScript: |
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
-          $localjson = $env:OPTIONAL_JSON
-          Write-Host "Printing out JSON : $localjson[0]"
+          Write-Host "Printing out JSON : $env:OPTIONAL_JSON"
 
         azPSVersion: "latest"
