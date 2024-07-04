@@ -73,7 +73,7 @@ runs:
       uses: azure/powershell@v2
       env:
         BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
-        OPTIONAL_JSON: ${{ steps.json_properties.outputs }}
+        OPTIONAL_JSON: ${{ steps.additional_properties.outputs }}
       with:
         inlineScript: |
           dir
