@@ -85,14 +85,10 @@ runs:
           Write-Host $env.additional_args
           $parsedJson = '${{ env.additional_args }}' | ConvertFrom-Json -AsHashtable
           Write-Host $parsedJson
-          # Existing script...
-          # if ($env.additional_args) {
-          #   $parsedJson = $env.additional_args | ConvertFrom-Json
-          #   Write-Output "Printing out JSON input 1: $parsedJson"
-            # foreach ($key in $parsedJson.PSObject.Properties.Name) {
-            #   $value = $parsedJson.$key
-            #   Write-Output "$key: $json"
-            # }
-          # }
+        
+          foreach ($key in $parsedJson.PSObject.Properties.Name) {
+            $value = $parsedJson.$key
+            Write-Output "$key: $json"
+          }
 
         azPSVersion: "latest"
