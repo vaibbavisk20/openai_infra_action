@@ -85,7 +85,7 @@ runs:
           Write-Host "Printing out JSON input: $env.additional_args"
           Existing script...
           if ($env.additional_args) {
-            $parsedJson = $env.additional-args | ConvertFrom-Json
+            $parsedJson = $env.additional_args | ConvertFrom-Json
             Write-Output "Printing out JSON input: $parsedJson"
             foreach ($key in $parsedJson.PSObject.Properties.Name) {
               $value = $parsedJson.$key
