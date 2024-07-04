@@ -73,16 +73,23 @@ runs:
         echo ${{steps.additional_properties.outputs}}
       shell: bash
 
-    # - name: Az powershell
-    #   uses: azure/powershell@v2
-    #   env:
-    #     BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
-    #   with:
-    #     inlineScript: |
-    #       dir
-    #       mkdir orig-ai-repo
-    #       cd orig-ai-repo
-    #       $localjson = $env:OPTIONAL_JSON
-    #       Write-Host "Printing out JSON : $localjson[0]"
+    - name: Az powershell
+      uses: azure/powershell@v2
+      env:
+        BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
+      with:
+        inlineScript: |
+          dir
+          mkdir orig-ai-repo
+          cd orig-ai-repo
+          # Existing script...
+          if (${{steps.additional_properties.outputs}}) {
+            $parsedJson = ${{steps.additional_properties.outputs}} | ConvertFrom-Json
+            Write-Output "Printing out JSON input: $parsedJson"
+            foreach ($key in $parsedJson.PSObject.Properties.Name) {
+              $value = $parsedJson.$key
+              Write-Output "$key: $json"
+            }
+          }
 
-    #     azPSVersion: "latest"
+        azPSVersion: "latest"
