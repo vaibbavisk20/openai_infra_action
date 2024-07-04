@@ -69,16 +69,19 @@ runs:
       with:
         file_path: "additional_properties.json"
 
-    - name: Az powershell
-      uses: azure/powershell@v2
-      env:
-        BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
-        OPTIONAL_JSON: ${{ steps.additional_properties.outputs }}
-      with:
-        inlineScript: |
-          dir
-          mkdir orig-ai-repo
-          cd orig-ai-repo
-          Write-Host "Printing out JSON : $env:OPTIONAL_JSON"
+    - run: |
+        echo ${{steps.additional_properties.outputs}}
 
-        azPSVersion: "latest"
+    # - name: Az powershell
+    #   uses: azure/powershell@v2
+    #   env:
+    #     BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
+    #   with:
+    #     inlineScript: |
+    #       dir
+    #       mkdir orig-ai-repo
+    #       cd orig-ai-repo
+    #       $localjson = $env:OPTIONAL_JSON
+    #       Write-Host "Printing out JSON : $localjson[0]"
+
+    #     azPSVersion: "latest"
