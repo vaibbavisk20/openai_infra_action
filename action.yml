@@ -84,10 +84,10 @@ runs:
           cd orig-ai-repo
           Write-Host $env.additional_args
           $parsedJson = '${{ env.additional_args }}' | ConvertFrom-Json -AsHashtable
-          Write-Host $parsedJson
+          Write-Host ${{parsedJson}}
         
-          foreach ($key in $parsedJson.PSObject.Properties.Name) {
-            $value = $parsedJson.$key
+          foreach (${{ key }} in $parsedJson.PSObject.Properties.Name) {
+            $value = ${{parsedJson}}.$key
             Write-Output "$key: $json"
           }
 
