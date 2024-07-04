@@ -37,6 +37,9 @@ inputs:
   data-path:
     description: 'Path to data to be used to train the OpenAI model'
     required: false
+  additional-args:
+    description: 'Additional parameters to set in the azd environment'
+    required: false
 
 runs:
   using: 'composite'
@@ -72,23 +75,42 @@ runs:
 
     - name: Az powershell
       uses: azure/powershell@v2
+      env:
+        BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
+        OPTIONAL_JSON: ${{ inputs.optional }}
       with:
         inlineScript: |
-          cd airepo
+          # cd airepo
           dir
-          azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
-          Get-AzAccessToken -ResourceUrl "https://vault.azure.net"
-          azd env new ${{ inputs.env-name }}
-          azd env set AZURE_ENV_NAME ${{ inputs.env-name }}
-          azd env set AZURE_LOCATION ${{ inputs.location }}
-          azd env set AZURE_SUBSCRIPTION_ID ${{ inputs.subscription-id }}
-          azd env set AZURE_PRINCIPAL_ID ${{ inputs.principal-id }}
-          azd env set AZURE_PRINCIPAL_NAME ${{ inputs.principal-name }}  
-          azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
-          azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
-          azd env set BRING_YOUR_OWN_DATA ${{ inputs.bring-your-own-data }}
-          azd env set CUSTOM_DATA_PATH ${{ inputs.data-path }}
-          Get-AzContext -ListAvailable
-          azd env get-values
-          azd up --no-prompt -e ${{ inputs.env-name }}
+          mkdir orig-ai-repo
+          cd orig-ai-repo
+          # Existing script...
+          if ($env:OPTIONAL_JSON) {
+            $parsedJson = $env:OPTIONAL_JSON | ConvertFrom-Json
+            Write-Output "Printing out JSON input:"
+            foreach ($key in $parsedJson.PSObject.Properties.Name) {
+              $value = $parsedJson.$key
+              Write-Output "$key: $value"
+            }
+          }
+          # azd init -t azure-search-openai-demo --no-prompt -e ${{ inputs.env-name }}
+          # azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
+          # Get-AzAccessToken -ResourceUrl "https://vault.azure.net"
+          # azd env set AZURE_LOCATION ${{ inputs.location }}
+          # azd env set AZURE_SUBSCRIPTION_ID ${{ inputs.subscription-id }}
+          # azd env set AZURE_PRINCIPAL_ID ${{ inputs.principal-id }}
+          # azd env set AZURE_PRINCIPAL_NAME ${{ inputs.principal-name }}  
+          # azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
+          # azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
+          # Get-AzContext -ListAvailable
+          # azd env get-values
+          # $bringYourOwnData = [System.Convert]::ToBoolean($env:BRING_YOUR_OWN_DATA)
+          # if ($bringYourOwnData -eq $true) {
+          #   Write-Output "The bring-your-own-data input is true."
+          #   if (Test-Path data) {
+          #     Remove-Item data -Recurse -Force
+          #   }
+          #   Copy-Item ../${{ inputs.data-path }} data -Recurse
+          # }
+          # azd up --no-prompt -e ${{ inputs.env-name }}
         azPSVersion: "latest"
