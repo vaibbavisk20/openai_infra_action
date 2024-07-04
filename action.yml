@@ -22,6 +22,9 @@ inputs:
   data-path:
     description: 'Path to data to be used to train the OpenAI model'
     required: false
+  additional-args:
+    description: 'Additional arguments to be passed to the deployment script'
+    required: false
 
 runs:
   using: 'composite'
@@ -48,14 +51,15 @@ runs:
     - name: Az powershell
       uses: azure/powershell@v2
       env:
-        BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
+        BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}        
+        INPUT_ARGS: ${{ inputs.additional-args }}
       with:
         inlineScript: |
           # Create and initialize AZD project
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
-          azd init -t azure-search-openai-demo --no-prompt -e ${{ inputs.env-name }}
+          azd init -t Azure-Samples/azure-search-openai-demo -e ${{ inputs.env-name }}
 
           # Get permissions
           azd auth login --client-id ${{ env.AZURE_CLIENT_ID }} --federated-credential-provider "github" --tenant-id ${{ env.AZURE_TENANT_ID }}
@@ -72,11 +76,9 @@ runs:
           azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
 
           # Set additional environment variables
-          $jsonObject = ConvertFrom-Json -InputObject $env:ADDITIONAL_ARGS
-          $jsonObject
-          foreach ($key in $jsonObject.PSObject.Properties.Name) {
-            $value = $jsonObject.$key
-            Write-Output "Env var: $key, value: $value"
+          $jsonObject = ConvertFrom-Json -InputObject $env:INPUT_ARGS -AsHashtable
+          foreach ($key in $jsonObject.Keys) {
+            $value = $jsonObject[$key]
             azd env set $key $value
           }
           azd env get-values
