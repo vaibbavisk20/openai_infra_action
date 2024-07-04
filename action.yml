@@ -71,6 +71,7 @@ runs:
 
     - run: |
         echo ${{steps.additional_properties.outputs}}
+      shell: bash
 
     # - name: Az powershell
     #   uses: azure/powershell@v2
