@@ -83,7 +83,7 @@ runs:
           mkdir orig-ai-repo
           cd orig-ai-repo
           Write-Host "Printing out JSON input: $env.additional_args"
-          Existing script...
+          # Existing script...
           if ($env.additional_args) {
             $parsedJson = $env.additional_args | ConvertFrom-Json
             Write-Output "Printing out JSON input: $parsedJson"
