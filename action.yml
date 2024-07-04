@@ -56,7 +56,7 @@ runs:
           cd orig-ai-repo
                   
           # Parse the JSON from the environment variable
-          $jsonObject = ConvertFrom-Json -InputObject env:ADDITIONAL_ARGS
+          $jsonObject = ConvertFrom-Json -InputObject $env:ADDITIONAL_ARGS
 
           # Print the contents of the JSON
           $jsonObject
