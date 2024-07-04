@@ -35,5 +35,5 @@ jobs:
               openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
               documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
               bring-your-own-data: true
-              data-path: "newdata"
+              data-path: "mydata"
               

@@ -86,11 +86,13 @@ runs:
             if (Test-Path data) {
               Remove-Item data -Recurse -Force
             }
-            Copy-Item ../${{ inputs.data-path }} data -Recurse
+            if (Test-Path ../${{ inputs.data-path }}) {
+              Copy-Item ../${{ inputs.data-path }} data -Recurse
+            }
           }
 
           #Start the deployment
-          # azd up --no-prompt -e ${{ inputs.env-name }}
+          azd up --no-prompt -e ${{ inputs.env-name }}
 
 
         azPSVersion: "latest"
