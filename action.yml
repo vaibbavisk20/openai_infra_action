@@ -54,11 +54,9 @@ runs:
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
-          
-          $env:additional_args
-        
+                  
           # Parse the JSON from the environment variable
-          $jsonObject = ConvertFrom-Json -InputObject $env:additional_args
+          $jsonObject = ConvertFrom-Json -InputObject env:ADDITIONAL_ARGS
 
           # Print the contents of the JSON
           $jsonObject
