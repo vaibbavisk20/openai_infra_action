@@ -87,10 +87,10 @@ runs:
           if ($env.additional_args) {
             $parsedJson = $env.additional_args | ConvertFrom-Json
             Write-Output "Printing out JSON input: $parsedJson"
-            foreach ($key in $parsedJson.PSObject.Properties.Name) {
-              $value = $parsedJson.$key
-              Write-Output "$key: $json"
-            }
+            # foreach ($key in $parsedJson.PSObject.Properties.Name) {
+            #   $value = $parsedJson.$key
+            #   Write-Output "$key: $json"
+            # }
           }
 
         azPSVersion: "latest"
