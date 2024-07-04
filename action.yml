@@ -67,16 +67,20 @@ runs:
       uses: azure/powershell@v2
       env:
         BRING_YOUR_OWN_DATA: ${{ inputs.bring-your-own-data }}
-        OPTIONAL_JSON: ${{ inputs.additional-args }}
+        OPTIONAL_JSON: ${{ inputs.additional-args[0] }}
       with:
         inlineScript: |
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
           Write-Host "Printing out JSON : $env:OPTIONAL_JSON"
-          $letterArray = 'a','b','c','d'
-          foreach ($letter in $letterArray)
-          {
-            Write-Host $letter
-          }
+          # Existing script...
+          # if ($env:OPTIONAL_JSON) {
+          #   $parsedJson = $env:OPTIONAL_JSON | ConvertFrom-Json
+          #   Write-Output "Printing out JSON input:"
+          #   foreach ($key in $parsedJson.PSObject.Properties.Name) {
+          #     $value = $parsedJson.$key
+          #     Write-Output "${{key}}: ${{value}}"
+          #   }
+          # }
         azPSVersion: "latest"
