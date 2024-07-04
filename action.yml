@@ -82,13 +82,18 @@ runs:
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
-          Write-Host $env.additional_args
-          $parsedJson = '${{ env.additional_args }}' | ConvertFrom-Json -AsHashtable
-          Write-Host ${{parsedJson}}
+          
+          $env:additional_args
         
-          foreach (${{ key }} in $parsedJson.PSObject.Properties.Name) {
-            $value = ${{parsedJson}}.$key
-            Write-Output "$key: $json"
-          }
+          # Parse the JSON from the environment variable
+          $jsonObject = ConvertFrom-Json -InputObject $env:additional_args
+
+          # Print the contents of the JSON
+          $jsonObject
+
+          foreach ($key in $jsonObject.PSObject.Properties.Name) {
+              $value = $jsonObject.$key
+              Write-Output "Key: $key, Value: $value"
+            }
 
         azPSVersion: "latest"
