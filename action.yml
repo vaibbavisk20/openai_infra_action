@@ -70,42 +70,13 @@ runs:
         OPTIONAL_JSON: ${{ inputs.optional }}
       with:
         inlineScript: |
-          # cd airepo
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
+          Write-Host "Printing out JSON : $env:OPTIONAL_JSON"
           $letterArray = 'a','b','c','d'
           foreach ($letter in $letterArray)
           {
             Write-Host $letter
           }
-          # Existing script...
-          # if ($env:OPTIONAL_JSON) {
-          #   $parsedJson = $env:OPTIONAL_JSON | ConvertFrom-Json
-          #   Write-Output "Printing out JSON input:"
-          #   foreach ($key in $parsedJson.PSObject.Properties.Name) {
-          #     $value = $parsedJson.$key
-          #     Write-Output "${{key}}: ${{value}}"
-          #   }
-          # }
-          # azd init -t azure-search-openai-demo --no-prompt -e ${{ inputs.env-name }}
-          # azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
-          # Get-AzAccessToken -ResourceUrl "https://vault.azure.net"
-          # azd env set AZURE_LOCATION ${{ inputs.location }}
-          # azd env set AZURE_SUBSCRIPTION_ID ${{ inputs.subscription-id }}
-          # azd env set AZURE_PRINCIPAL_ID ${{ inputs.principal-id }}
-          # azd env set AZURE_PRINCIPAL_NAME ${{ inputs.principal-name }}  
-          # azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
-          # azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
-          # Get-AzContext -ListAvailable
-          # azd env get-values
-          # $bringYourOwnData = [System.Convert]::ToBoolean($env:BRING_YOUR_OWN_DATA)
-          # if ($bringYourOwnData -eq $true) {
-          #   Write-Output "The bring-your-own-data input is true."
-          #   if (Test-Path data) {
-          #     Remove-Item data -Recurse -Force
-          #   }
-          #   Copy-Item ../${{ inputs.data-path }} data -Recurse
-          # }
-          # azd up --no-prompt -e ${{ inputs.env-name }}
         azPSVersion: "latest"
