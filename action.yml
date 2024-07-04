@@ -82,14 +82,15 @@ runs:
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
+          Write-Host "Printing out JSON input: $env.additional-args"
           # Existing script...
-          if (${{steps.additional_properties.outputs}}) {
-            $parsedJson = ${{steps.additional_properties.outputs}} | ConvertFrom-Json
-            Write-Output "Printing out JSON input: $parsedJson"
-            foreach ($key in $parsedJson.PSObject.Properties.Name) {
-              $value = $parsedJson.$key
-              Write-Output "$key: $json"
-            }
-          }
+          # if (${{steps.additional_properties.outputs}}) {
+          #   $parsedJson = ${{steps.additional_properties.outputs}} | ConvertFrom-Json
+          #   Write-Output "Printing out JSON input: $parsedJson"
+          #   foreach ($key in $parsedJson.PSObject.Properties.Name) {
+          #     $value = $parsedJson.$key
+          #     Write-Output "$key: $json"
+          #   }
+          # }
 
         azPSVersion: "latest"
