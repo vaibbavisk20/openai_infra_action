@@ -74,26 +74,20 @@ runs:
           dir
           mkdir orig-ai-repo
           cd orig-ai-repo
+          $letterArray = 'a','b','c','d'
+          foreach ($letter in $letterArray)
+          {
+            Write-Host $letter
+          }
           # Existing script...
-          if ($env:OPTIONAL_JSON) {
-            $parsedJson = $env:OPTIONAL_JSON | ConvertFrom-Json
-            Write-Output "Printing out JSON input:"
-            foreach ($key in $parsedJson.PSObject.Properties.Name) {
-              $value = $parsedJson.$key
-              Write-Output "${{key}}: ${{value}}"
-            }
-          }
-          # Retrieve the JSON environment variable
-          $jsonString = $env:MY_JSON
-
-          # Convert the JSON string to a PowerShell object
-          $jsonObject = $jsonString | ConvertFrom-Json
-
-          # Iterate over the JSON object
-          foreach ($key in $jsonObject.PSObject.Properties.Name) {
-              $value = $jsonObject.$key
-              Write-Output "Key: $key, Value: $value"
-          }
+          # if ($env:OPTIONAL_JSON) {
+          #   $parsedJson = $env:OPTIONAL_JSON | ConvertFrom-Json
+          #   Write-Output "Printing out JSON input:"
+          #   foreach ($key in $parsedJson.PSObject.Properties.Name) {
+          #     $value = $parsedJson.$key
+          #     Write-Output "${{key}}: ${{value}}"
+          #   }
+          # }
           # azd init -t azure-search-openai-demo --no-prompt -e ${{ inputs.env-name }}
           # azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
           # Get-AzAccessToken -ResourceUrl "https://vault.azure.net"
