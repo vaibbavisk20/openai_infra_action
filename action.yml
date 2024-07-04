@@ -63,16 +63,6 @@ runs:
       with:
         node-version: 20
 
-    - name: 'Create directory'
-      run: mkdir airepo
-      shell: pwsh
-
-    - name: Checkout tools repo
-      uses: actions/checkout@v4
-      with:
-        repository: vaibbavisk20/vsk-search-openai-demo-py
-        path: airepo
-
     - name: Az powershell
       uses: azure/powershell@v2
       env:
@@ -90,8 +80,19 @@ runs:
             Write-Output "Printing out JSON input:"
             foreach ($key in $parsedJson.PSObject.Properties.Name) {
               $value = $parsedJson.$key
-              Write-Output "$key: $value"
+              Write-Output "${{key}}: ${{value}}"
             }
+          }
+          # Retrieve the JSON environment variable
+          $jsonString = $env:MY_JSON
+
+          # Convert the JSON string to a PowerShell object
+          $jsonObject = $jsonString | ConvertFrom-Json
+
+          # Iterate over the JSON object
+          foreach ($key in $jsonObject.PSObject.Properties.Name) {
+              $value = $jsonObject.$key
+              Write-Output "Key: $key, Value: $value"
           }
           # azd init -t azure-search-openai-demo --no-prompt -e ${{ inputs.env-name }}
           # azd auth login --client-id ${{ inputs.client-id }} --federated-credential-provider "github" --tenant-id ${{ inputs.tenant-id }}
