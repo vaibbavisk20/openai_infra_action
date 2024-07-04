@@ -83,7 +83,7 @@ runs:
           mkdir orig-ai-repo
           cd orig-ai-repo
           Write-Host $env.additional_args
-          $parsedJson = ${{ env.additional_args }} | ConvertFrom-Json -AsHashtable
+          $parsedJson = '${{ env.additional_args }}' | ConvertFrom-Json -AsHashtable
           Write-Host $parsedJson
           # Existing script...
           # if ($env.additional_args) {
