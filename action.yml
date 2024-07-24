@@ -40,7 +40,7 @@ runs:
         subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
         enable-AzPSSession: true
         auth-type: IDENTITY
-          
+        
     - name: 'Install azd'
       uses: Azure/setup-azd@v0.1.0
 
