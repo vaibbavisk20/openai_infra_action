@@ -39,9 +39,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_31F5D6250D4B4935906681C775DF3588 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6C5BC4B396DE4A7682E6F8CC6B876D42 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7098F04DE912477DAFCC7FEC740DE376 }}
+          client-id: '3688ea17-187f-400d-892f-f9b73b19e09e'
+          tenant-id: '72f988bf-86f1-41af-91ab-2d7cd011db47'
+          subscription-id: '443b0799-279f-401e-a220-aa1463a7710f'
           
       - name: Deploy Open AI infrastructure action execution
         uses: ./
