@@ -18,7 +18,8 @@ jobs:
   deploy-resources-to-azure:
     runs-on: ubuntu-latest
     env:
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      # AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_ID: "3688ea17-187f-400d-892f-f9b73b19e09e"
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_PRINCIPAL_ID: ${{ secrets.AZURE_APP_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
