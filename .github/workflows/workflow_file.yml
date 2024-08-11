@@ -1,9 +1,9 @@
 name: Workflow to deploy OpenAI infrastructure to Azure
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   pull_request:
     branches:
       - main
@@ -29,7 +29,7 @@ jobs:
     env:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_PRINCIPAL_ID: ${{ secrets.AZURE_APP_ID }}
+      AZURE_PRINCIPAL_ID: ${{ secrets.AZURE_MANAGEDIDENTITY_PRINCIPAL_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v4
