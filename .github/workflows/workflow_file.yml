@@ -45,7 +45,7 @@ jobs:
       - name: Deploy Open AI infrastructure action execution
         uses: ./
         with:
-          location: ${{ vars.AZURE_LOCATION }}
+          location: ${{ secrets.AZURE_LOCATION }}
           env-name: ${{ vars.AZURE_ENV_NAME }}
           openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
           documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
