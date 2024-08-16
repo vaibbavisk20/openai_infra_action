@@ -72,8 +72,6 @@ runs:
           }
           if ($json.parameters) {
               $json.parameters | Add-Member -Name "openAiResourceGroupLocation" -Value $openAiEnvVar -MemberType NoteProperty
-          } else {
-              Write-Host "parameters not found in JSON"
           }
           $json | ConvertTo-Json -Depth 10 | Set-Content -Path $filePath
           
@@ -104,10 +102,12 @@ runs:
           }
         
           # Set additional environment variables
-          $jsonObject = ConvertFrom-Json -InputObject $env:INPUT_ARGS -AsHashtable
-          foreach ($key in $jsonObject.Keys) {
-            $value = $jsonObject[$key]
-            azd env set $key $value
+          if (-not [string]::IsNullOrEmpty($env:INPUT_ARGS)) {
+            $jsonObject = ConvertFrom-Json -InputObject $env:INPUT_ARGS -AsHashtable
+            foreach ($key in $jsonObject.Keys) {
+              $value = $jsonObject[$key]
+              azd env set $key $value
+            }
           }
           azd env get-values
 
