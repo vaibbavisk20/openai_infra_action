@@ -63,7 +63,7 @@ runs:
 
            # Additional person object
           $json.parameters.openAiResourceGroupLocation = @{
-            value = "${{ AZURE_OPENAI_LOCATION }}"  
+            value = "${ AZURE_OPENAI_LOCATION }"  
           }
           
           # Convert the additional person to JSON
