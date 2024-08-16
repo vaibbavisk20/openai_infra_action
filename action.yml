@@ -60,7 +60,7 @@ runs:
           mkdir orig-ai-repo
           cd orig-ai-repo
           azd init -t Azure-Samples/azure-search-openai-demo -e ${{ inputs.env-name }}
-
+          
           # Get permissions
           azd auth login --client-id ${{ env.AZURE_CLIENT_ID }} --federated-credential-provider "github" --tenant-id ${{ env.AZURE_TENANT_ID }}
           Get-AzAccessToken -ResourceUrl "https://vault.azure.net"
@@ -72,7 +72,7 @@ runs:
 
           # Set environment variables to answer prompts
           azd env set AZURE_LOCATION ${{ inputs.location }}
-
+          
           $filePath = "infra/main.parameters.json"
 
           # Load the existing JSON file
@@ -80,9 +80,10 @@ runs:
           
           # Add the new parameter to the 'parameters' object
           $json.parameters.openAiResourceGroupLocation = @{
-            value = "${AZURE_OPENAI_LOCATION}"
+            value = "${{ inputs.openai-location }}"
           }
 
+          # Convert the modified object back to JSON and save it
           $json | ConvertTo-Json -Depth 10 | Set-Content -Path $filePath
           
           azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
