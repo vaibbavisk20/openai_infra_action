@@ -68,7 +68,7 @@ runs:
           
           # Create BlockC structure
           $openAiEnvVar = @{
-            value = '${ AZURE_OPENAI_LOCATION }'
+            value = '${AZURE_OPENAI_LOCATION}'
           }
 
           if ($json.parameters) {
