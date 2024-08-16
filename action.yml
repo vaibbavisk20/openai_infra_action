@@ -48,18 +48,6 @@ runs:
       with:
         node-version: 20
 
-    - name: Checkout tools repo
-      uses: actions/checkout@v4
-      with:
-        repository: Azure-Samples/azure-search-openai-demo
-        path: tempairepo
-
-    - name: Update my-file.json description
-      uses: restackio/update-json-file-action@2.1
-      with:
-        file: my-file.json
-        fields: "{'a.b.c': 'value_here', 'a.b.d[0]': 'value_here'}"
-
     - name: Az powershell
       uses: azure/powershell@v2
       env:
