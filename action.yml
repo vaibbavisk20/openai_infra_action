@@ -60,18 +60,42 @@ runs:
           mkdir orig-ai-repo
           cd orig-ai-repo
           azd init -t Azure-Samples/azure-search-openai-demo -e ${{ inputs.env-name }}
+          
+          $filePath = "infra/main.parameters.json"
+
+          # Load the existing JSON file
+          $json = Get-Content -Raw -Path $filePath | ConvertFrom-Json
+          
+          # Create BlockC structure
+          $blockcvalue = @{
+            name = "openAiResourceGroupLocation"
+            value = '${ AZURE_OPENAI_LOCATION }'
+          }
+
+          # Add BlockC to BlockB within BlockA
+          if ($json.parameters) {
+              $json.parameters | Add-Member -Name "openAiResourceGroupLocation" -Value $blockcvalue -MemberType NoteProperty
+          } else {
+              Write-Host "parameters not found in JSON"
+          }
+
+          # Convert the modified object back to JSON and save it
+          $json | ConvertTo-Json -Depth 10 | Set-Content -Path $filePath
+
+          # =====================================
 
            # Additional person object
-          $json.parameters.openAiResourceGroupLocation = @{
-            value = "${ AZURE_OPENAI_LOCATION }"  
-          }
+          # $json.parameters.openAiResourceGroupLocation = @{
+          #   value = "${ AZURE_OPENAI_LOCATION }"  
+          # }
           
           # Convert the additional person to JSON
-          $additionalJson = $json.parameters.openAiResourceGroupLocation | ConvertTo-Json
+          # $additionalJson = $json.parameters.openAiResourceGroupLocation | ConvertTo-Json
           
           # Append the JSON string to the existing file
-          $filePath = 'infra/main.parameters.json'
-          $additionalJson | Add-Content -Path $filePath
+          # $filePath = 'infra/main.parameters.json'
+          # $additionalJson | Add-Content -Path $filePath
+          # ==================
           
           # Get permissions
           azd auth login --client-id ${{ env.AZURE_CLIENT_ID }} --federated-credential-provider "github" --tenant-id ${{ env.AZURE_TENANT_ID }}
