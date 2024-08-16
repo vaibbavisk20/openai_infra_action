@@ -47,14 +47,14 @@ jobs:
         with:
           location: ${{ vars.AZURE_LOCATION }}
           env-name: ${{ vars.AZURE_ENV_NAME }}
-          openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
-          documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
-          bring-your-own-data: true
-          data-path: "mydata"
-          additional-args: '{
-            "AZURE_APP_SERVICE_SKU":"B2", 
-            "AZURE_OPENAI_CHATGPT_MODEL":"gpt-35-turbo", 
-            "AZURE_OPENAI_EMB_DEPLOYMENT_CAPACITY":"40"
-            }'
+          # openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
+          # documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
+          # bring-your-own-data: true
+          # data-path: "mydata"
+          # additional-args: '{
+          #   "AZURE_APP_SERVICE_SKU":"B2", 
+          #   "AZURE_OPENAI_CHATGPT_MODEL":"gpt-35-turbo", 
+          #   "AZURE_OPENAI_EMB_DEPLOYMENT_CAPACITY":"40"
+          #   }'
 
               
