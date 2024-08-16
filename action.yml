@@ -27,7 +27,6 @@ inputs:
   additional-args:
     description: 'Additional arguments to be passed to the deployment script'
     required: false
-    default: {}
 
 runs:
   using: 'composite'
