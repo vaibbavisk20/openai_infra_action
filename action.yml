@@ -87,14 +87,14 @@ runs:
           azd env set AZURE_LOCATION ${{ inputs.location }}
 
           # Set open ai location if provided, else default to rg location
-          if ([string]::IsNullOrEmpty(${{ inputs.openai-location }})) {
+          if ([string]::IsNullOrEmpty("${{ inputs.openai-location }}")) {
             azd env set AZURE_OPENAI_LOCATION ${{ inputs.location }}
           } else {
             azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
           }
 
           # Set document intelligence location if provided, else default to rg location
-          if ([string]::IsNullOrEmpty(${{ inputs.documentintelligence-location }})) {
+          if ([string]::IsNullOrEmpty("${{ inputs.documentintelligence-location }}")) {
             azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.location }}
           } else {
             azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
