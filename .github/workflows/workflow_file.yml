@@ -31,7 +31,7 @@ jobs:
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_PRINCIPAL_ID: ${{ secrets.AZURE_MANAGEDIDENTITY_PRINCIPAL_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RG }}
+      AZURE_RG: ${{ vars.AZURE_RG }}
     steps:
       - uses: actions/checkout@v4
       
