@@ -72,6 +72,13 @@ runs:
 
           # Set environment variables to answer prompts
           azd env set AZURE_LOCATION ${{ inputs.location }}
+
+          $filePath = "infra/main.parameters.json"
+          $newParam = '{"openAiResourceGroupLocation": {"value": "${AZURE_OPENAI_LOCATION}"}}'
+          
+          # Read, update, and write JSON in one line
+          (Get-Content -Raw -Path $filePath | ConvertFrom-Json).parameters += ($newParam | ConvertFrom-Json) | ConvertTo-Json -Depth 10 | Set-Content -Path $filePath
+
           azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
           azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
 
