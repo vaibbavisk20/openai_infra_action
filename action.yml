@@ -68,7 +68,6 @@ runs:
           
           # Create BlockC structure
           $openAiEnvVar = @{
-            name = "openAiResourceGroupLocation"
             value = '${ AZURE_OPENAI_LOCATION }'
           }
 
@@ -85,21 +84,6 @@ runs:
           $jsonContent = Get-Content -Raw -Path $filePath
           Write-Host "Contents of the JSON file:"
           Write-Host $jsonContent
-
-          # =====================================
-
-           # Additional person object
-          # $json.parameters.openAiResourceGroupLocation = @{
-          #   value = "${ AZURE_OPENAI_LOCATION }"  
-          # }
-          
-          # Convert the additional person to JSON
-          # $additionalJson = $json.parameters.openAiResourceGroupLocation | ConvertTo-Json
-          
-          # Append the JSON string to the existing file
-          # $filePath = 'infra/main.parameters.json'
-          # $additionalJson | Add-Content -Path $filePath
-          # ==================
           
           # Get permissions
           azd auth login --client-id ${{ env.AZURE_CLIENT_ID }} --federated-credential-provider "github" --tenant-id ${{ env.AZURE_TENANT_ID }}
