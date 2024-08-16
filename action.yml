@@ -48,6 +48,18 @@ runs:
       with:
         node-version: 20
 
+    - name: Checkout tools repo
+      uses: actions/checkout@v4
+      with:
+        repository: Azure-Samples/azure-search-openai-demo
+        path: tempairepo
+
+    - name: Update my-file.json description
+      uses: restackio/update-json-file-action@2.1
+      with:
+        file: my-file.json
+        fields: "{'a.b.c': 'value_here', 'a.b.d[0]': 'value_here'}"
+
     - name: Az powershell
       uses: azure/powershell@v2
       env:
@@ -60,6 +72,18 @@ runs:
           mkdir orig-ai-repo
           cd orig-ai-repo
           azd init -t Azure-Samples/azure-search-openai-demo -e ${{ inputs.env-name }}
+
+           # Additional person object
+          $json.parameters.openAiResourceGroupLocation = @{
+            value = "${{ AZURE_OPENAI_LOCATION }}"  
+          }
+          
+          # Convert the additional person to JSON
+          $additionalJson = $json.parameters.openAiResourceGroupLocation | ConvertTo-Json
+          
+          # Append the JSON string to the existing file
+          $filePath = 'infra/main.parameters.json'
+          $additionalJson | Add-Content -Path $filePath
           
           # Get permissions
           azd auth login --client-id ${{ env.AZURE_CLIENT_ID }} --federated-credential-provider "github" --tenant-id ${{ env.AZURE_TENANT_ID }}
@@ -72,20 +96,8 @@ runs:
 
           # Set environment variables to answer prompts
           azd env set AZURE_LOCATION ${{ inputs.location }}
-          
-          $filePath = "infra/main.parameters.json"
 
-          # Load the existing JSON file
-          $json = Get-Content -Raw -Path $filePath | ConvertFrom-Json
-          
-          # Add the new parameter to the 'parameters' object
-          $json.parameters.openAiResourceGroupLocation = @{
-            value = "${{ inputs.openai-location }}"
-          }
-
-          # Convert the modified object back to JSON and save it
-          $json | ConvertTo-Json -Depth 10 | Set-Content -Path $filePath
-          
+        
           azd env set AZURE_OPENAI_LOCATION ${{ inputs.openai-location }}
           azd env set AZURE_DOCUMENTINTELLIGENCE_LOCATION ${{ inputs.documentintelligence-location }}
 
