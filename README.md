@@ -72,40 +72,56 @@ permissions:
   id-token: write
   contents: read
 
-
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create and start virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+
   deploy-resources-to-azure:
     runs-on: ubuntu-latest
+    needs: build
     env:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_PRINCIPAL_ID: ${{ secrets.AZURE_APP_ID }}
+      AZURE_PRINCIPAL_ID: ${{ secrets.AZURE_MANAGEDIDENTITY_PRINCIPAL_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      AZURE_RG: ${{ vars.AZURE_RG }}
     steps:
-        - name: Checkout master
-          uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           
-        - name: Deploy Open AI infrastructure action execution
-          uses: Azure/Sample-Chat-Completion-OpenAI-Infra@v6
-          with:
-              location: ${{ vars.AZURE_LOCATION }}
-              env-name: ${{ vars.AZURE_ENV_NAME }}
-              openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
-              documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
-              bring-your-own-data: true
-              data-path: "mydata"
-              additional-args: '{
-                "AZURE_APP_SERVICE_SKU":"B2", 
-                }'
+      - name: Deploy Open AI infrastructure action execution
+        uses: ./
+        with:
+          location: ${{ vars.AZURE_LOCATION }}
+          env-name: ${{ vars.AZURE_ENV_NAME }}
+          openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
+          documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
+          # optional parameters
+          bring-your-own-data: true
+          data-path: "mydata"
+          additional-args: '{
+            "AZURE_APP_SERVICE_SKU":"B2", 
+            }'
 ```
 
 ## Using your own data
 
 The Chat App is designed to work with any PDF documents. The sample data is provided to help you get started quickly, but you can easily replace the sample data with your own data.
 
-1. You will need to upload your data folder to the repo containing the workflow above, and set **data-path** as your data folder path.
+1. You will need to upload your data folder to the repo containing the workflow above, and set **data-path** as your data folder path. Folder should only contain files that will be used for training.
 
-2. Please change env name for new set of resources. If the same env name is used, then new data will get re-deployed to previously created resources.
+1. Please change env name for a new set of resources. If the same env name is used, then new data will get re-deployed to previously created resources.
   
 **Note**: The frontend is built using React and Fluent UI components. In order to customize prompts seen on the chat interface, you will have to clone the template and make those changes. [Refer to template for further information](https://github.com/Azure-Samples/azure-search-openai-demo)
 
