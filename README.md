@@ -108,11 +108,12 @@ jobs:
           openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
           documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
           # optional parameters
-          bring-your-own-data: true
-          data-path: "mydata"
           additional-args: '{
             "AZURE_APP_SERVICE_SKU":"B2", 
             }'
+          # bring-your-own-data: true
+          # data-path: "mydata"
+         
 ```
 
 ## Using your own data
