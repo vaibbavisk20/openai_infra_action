@@ -42,18 +42,16 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           
       - name: Deploy Open AI infrastructure action execution
-        uses: ./
+        uses: Azure/Sample-Chat-Completion-OpenAI-Infra@v6
         with:
           location: ${{ vars.AZURE_LOCATION }}
           env-name: ${{ vars.AZURE_ENV_NAME }}
           openai-location: ${{ vars.AZURE_OPENAI_LOCATION }}
           documentintelligence-location: ${{ vars.AZURE_DOCUMENTINTELLIGENCE_LOCATION }}
-          bring-your-own-data: true
-          data-path: "mydata"
+          # optional parameters
           additional-args: '{
             "AZURE_APP_SERVICE_SKU":"B2", 
-            "AZURE_OPENAI_CHATGPT_MODEL":"gpt-35-turbo", 
-            "AZURE_OPENAI_EMB_DEPLOYMENT_CAPACITY":"40"
             }'
-
-              
+          # bring-your-own-data: true
+          # data-path: "mydata"
+         
