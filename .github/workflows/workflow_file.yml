@@ -42,7 +42,7 @@ jobs:
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           
       - name: Deploy Open AI infrastructure action execution
-        uses: Azure/Sample-Chat-Completion-OpenAI-Infra@v6
+        uses: ./
         with:
           location: ${{ secrets.AZURE_LOCATION }}
           env-name: ${{ vars.AZURE_ENV_NAME }}
